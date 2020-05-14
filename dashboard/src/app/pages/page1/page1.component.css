@@ -1,0 +1,31 @@
+.mainContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.headerContainer {
+  display: flexbox;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.selectsContainer {
+  display: flexbox;
+  align-items: center;
+  padding-right: 15%;
+  padding-left: 15%;
+}
+
+.graphicContainer {
+  display: flexbox;
+  align-items: center;
+}
+
+.graphic {
+  display: flexbox;
+  margin-top: 30px;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-bottom: 30px;
+  width: 80vw;
+}

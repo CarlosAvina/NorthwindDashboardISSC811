@@ -1,0 +1,15 @@
+<div class="mainContainer">
+  <div class="headerContainer">
+    <h1 class="display-4">Page 1</h1>
+  </div>
+  <div class="selectsContainer">
+    <ng-select class="custom" [items]="['hola', 'mundo']" [closeOnSelect]="true" [searchable]="true" [clearable]="false" placeholder="Mes"></ng-select>
+    <ng-select class="custom" [items]="['hola', 'mundo']" [closeOnSelect]="true" [searchable]="true" [clearable]="false" placeholder="Año"></ng-select>
+    <ng-select class="custom" [items]="['hola', 'mundo']" [closeOnSelect]="true" [searchable]="true" [clearable]="false" placeholder="Clientes" [multiple]="true"></ng-select>
+  </div>
+  <div class="graphicContainer">
+    <div class="graphic">
+      <app-bar-chart></app-bar-chart>
+    </div>
+  </div>
+</div>
