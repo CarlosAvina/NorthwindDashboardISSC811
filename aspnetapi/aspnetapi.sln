@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API REST Cubo", "API REST Cubo\API REST Cubo.csproj", "{83731199-8195-4B5D-B3EB-0892D3519688}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetapi", "aspnetapi\aspnetapi.csproj", "{984B9D34-DD9B-417C-B444-18E7F77042C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{83731199-8195-4B5D-B3EB-0892D3519688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83731199-8195-4B5D-B3EB-0892D3519688}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83731199-8195-4B5D-B3EB-0892D3519688}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83731199-8195-4B5D-B3EB-0892D3519688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FD827529-3585-479C-B3FF-4C80AB2B83F0}
+		SolutionGuid = {3DCD65F3-F788-4834-9CC5-3BCB9DF1A7F9}
 	EndGlobalSection
 EndGlobal
