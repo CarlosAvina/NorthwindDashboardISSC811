@@ -1,36 +1,52 @@
 <div class="mainContainer">
   <div class="headerContainer">
-    <h1 class="display-4">Page 2</h1>
+    <h1 class="display-4">Grafica de pastel</h1>
   </div>
   <div class="selectsContainer">
     <ng-select
       class="custom"
-      [items]="['hola', 'mundo']"
+      [items]="defaultBindingsList"
+      [closeOnSelect]="true"
+      [searchable]="true"
+      [clearable]="false"
+      placeholder="Dimension"
+      [(ngModel)]="selectedDimension"
+    ></ng-select>
+    <ng-select
+      class="custom"
+      [items]="mesesList"
       [closeOnSelect]="true"
       [searchable]="true"
       [clearable]="false"
       placeholder="Mes"
+      [(ngModel)]="selectedMeses"
     ></ng-select>
     <ng-select
       class="custom"
-      [items]="['hola', 'mundo']"
+      [items]="aniosList"
       [closeOnSelect]="true"
       [searchable]="true"
       [clearable]="false"
       placeholder="Año"
+      [(ngModel)]="selectedAnios"
     ></ng-select>
     <ng-select
       class="custom"
-      [items]="['hola', 'mundo']"
+      [items]="nombresList"
       [closeOnSelect]="true"
       [searchable]="true"
       [clearable]="false"
       placeholder="Clientes"
+      [multiple]="true"
+      [(ngModel)]="selectedCustomer"
     ></ng-select>
   </div>
   <div class="graphicContainer">
     <div class="graphic">
-      <app-pie-chart></app-pie-chart>
+      <app-pie-chart
+        [pieChartLabels]="pieChartLabels"
+        [pieChartData]="pieChartData"
+      ></app-pie-chart>
     </div>
   </div>
 </div>
