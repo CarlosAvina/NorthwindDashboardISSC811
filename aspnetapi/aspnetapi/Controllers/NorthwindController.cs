@@ -113,7 +113,7 @@ namespace API_REST_Cubo.Controllers
 
         [HttpPost]
         [Route("GetDataPieByDimension/{dim}/{order}")]
-        public HttpResponseMessage GetDataPieByDimension(string dim, string order, string[] values)
+        public HttpResponseMessage GetDataPieByDimension(string dim, string order, [FromBody] dynamic values)
         {
             string WITH = @"
             WITH 
@@ -137,7 +137,7 @@ namespace API_REST_Cubo.Controllers
             string ROWS = @"
                 NON EMPTY
                 {
-                    [OrderDimension]
+                    ([OrderDimension], STRTOSET(@Anios), STRTOSET(@Meses))
                 }
                 ON ROWS
             ";
@@ -149,18 +149,23 @@ namespace API_REST_Cubo.Controllers
             Debug.Write(MDX_QUERY);
 
             List<string> dimension = new List<string>();
+            List<string> anios = new List<string>();
+            List<string> meses = new List<string>();
             List<decimal> ventas = new List<decimal>();
             List<dynamic> lstTabla = new List<dynamic>();
 
             dynamic result = new
             {
                 datosDimension = dimension,
+                datosAnios = anios,
+                datosMeses = meses,
                 datosVenta = ventas,
                 datosTabla = lstTabla
             };
 
             string valoresDimension = string.Empty;
-            foreach (var item in values)
+            Console.WriteLine(values);
+            foreach (var item in values.clients)
             {
                 valoresDimension += "{0}.[" + item + "],";
             }
@@ -168,23 +173,45 @@ namespace API_REST_Cubo.Controllers
             valoresDimension = string.Format(valoresDimension, dim);
             valoresDimension = @"{" + valoresDimension + "}";
 
+            string valoresAnios = string.Empty;
+            foreach(var item in values.years)
+            {
+                valoresAnios += "[Dim Tiempo].[Dim Tiempo Año].[" + item + "],";
+            }
+            valoresAnios = valoresAnios.TrimEnd(',');
+            valoresAnios = @"{" + valoresAnios + "}";
+
+            string valoresMeses = string.Empty;
+            foreach (var item in values.months)
+            {
+                valoresMeses += "[Dim Tiempo].[Dim Tiempo Mes].[" + item + "],";
+            }
+            valoresMeses = valoresMeses.TrimEnd(',');
+            valoresMeses = @"{" + valoresMeses + "}";
+
             using (AdomdConnection cnn = new AdomdConnection(ConfigurationManager.ConnectionStrings["CuboNorthwind"].ConnectionString))
             {
                 cnn.Open();
                 using (AdomdCommand cmd = new AdomdCommand(MDX_QUERY, cnn))
                 {
                     cmd.Parameters.Add("Dimension", valoresDimension);
+                    cmd.Parameters.Add("Anios", valoresAnios);
+                    cmd.Parameters.Add("Meses", valoresMeses);
                     using (AdomdDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dr.Read())
                         {
                             dimension.Add(dr.GetString(0));
-                            ventas.Add(Math.Round(dr.GetDecimal(1)));
+                            anios.Add(dr.GetString(1));
+                            meses.Add(dr.GetString(2));
+                            ventas.Add(Math.Round(dr.GetDecimal(3)));
 
                             dynamic objTabla = new
                             {
                                 descripcion = dr.GetString(0),
-                                valor = Math.Round(dr.GetDecimal(1))
+                                años = dr.GetString(1),
+                                meses = dr.GetString(2),
+                                valor = Math.Round(dr.GetDecimal(3))
                             };
 
                             lstTabla.Add(objTabla);
