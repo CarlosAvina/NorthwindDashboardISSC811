@@ -13,7 +13,7 @@ export class NorthwindService {
   constructor(private http: HttpClient) {}
 
   getSelectsData() {
-    return this.http.get(`${URL_API}fillCombo`);
+    return this.http.get(`${URL_API}clients`);
   }
 
   getGraphicsData(dim: string, values: string[]) {
