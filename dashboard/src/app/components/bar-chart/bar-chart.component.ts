@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
@@ -9,6 +9,13 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./bar-chart.component.scss'],
 })
 export class BarChartComponent implements OnInit {
+
+  @Input() barChartLabels: Label[] = [];
+  @Input() barChartData: ChartDataSets[] = [];
+
+  @Input() titulo: string = '';
+  @Output() onClickButton: EventEmitter<string> = new EventEmitter();
+
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
@@ -20,23 +27,23 @@ export class BarChartComponent implements OnInit {
       },
     },
   };
-  public barChartLabels: Label[] = [
-    '2006',
-    '2007',
-    '2008',
-    '2009',
-    '2010',
-    '2011',
-    '2012',
-  ];
+  // public barChartLabels: Label[] = [
+  //   '2006',
+  //   '2007',
+  //   '2008',
+  //   '2009',
+  //   '2010',
+  //   '2011',
+  //   '2012',
+  // ];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-  ];
+  // public barChartData: ChartDataSets[] = [
+  //   { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+  //   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+  // ];
 
   constructor() {}
 
