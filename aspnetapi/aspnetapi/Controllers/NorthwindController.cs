@@ -63,13 +63,13 @@ namespace API_REST_Cubo.Controllers
             //Debug.Write(MDX_QUERY);
 
             List<string> clients = new List<string>();
-            List<string> employees = new List<string>();
+            List<string> months = new List<string>();
             List<string> years = new List<string>();
 
             dynamic result = new
             {
                 clientes = clients,
-                empleados = employees,
+                meses = months,
                 anios = years
             };
 
@@ -98,7 +98,7 @@ namespace API_REST_Cubo.Controllers
                                         years.Add(dr.GetString(0));
                                         break;
                                     case 2:
-                                        employees.Add(dr.GetString(0));
+                                        months.Add(dr.GetString(0));
                                         break;
                                 }
                             }
