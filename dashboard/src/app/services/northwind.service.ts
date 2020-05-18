@@ -19,7 +19,7 @@ export class NorthwindService {
   getGraphicsData(dim: string, values: any) {
     const dimension: string = `[Dim%20${dim}].[Dim%20${dim}%20Nombre]`;
     return this.http
-      .post(`${URL_API}GetDataPieByDimension/${dimension}`, values)
+      .post(`${URL_API}GetDataPieByDimension/${dimension}/DESC`, values)
       .pipe(map((result: any) => result));
   }
 }
