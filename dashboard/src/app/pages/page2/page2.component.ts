@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Label } from 'ng2-charts';
+import { NorthwindService } from 'src/app/services/northwind.service';
 
 @Component({
   selector: 'app-page2',
@@ -8,7 +9,7 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./page2.component.css'],
 })
 export class Page2Component implements OnInit {
-  constructor() {}
+  constructor(private north: NorthwindService) { }
 
   pieChartLabels: Label[] = [];
   pieChartData: number[] = [];
@@ -27,45 +28,75 @@ export class Page2Component implements OnInit {
   selectedAnios: any[] = [];
   selectedCustomer: any[] = [];
 
-  // Ng-Select Multiple
-  customer$: Observable<any>;
+  selectedParams: any = {
+    dimension: '',
+    clients: [],
+    years: [],
+    months: [],
+  };
 
   ngOnInit(): void {
-    // this.selectedDimension = this.defaultBindingsList[0];
+    this.selectedDimension = this.defaultBindingsList[0];
 
-    // this.north.getSelectsData().subscribe((result: any) => {
-    // console.log(result);
+    this.north.getSelectsData().subscribe((data: any) => {
 
-    const data = {
-      clientes: [
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-      ],
-      meses: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
-      anios: ['2000', '2000', '2000', '2000', '2000', '2000'],
-    };
+      this.mesesList = data.meses;
+      this.aniosList = data.anios;
+      this.nombresList = data.clientes;
 
-    this.mesesList = data.meses;
-    this.aniosList = data.anios;
-    this.nombresList = data.clientes;
+      this.updateGraphic();
+    });
+  }
 
-    const graphic = {
-      datosDimension: ['Alfreds Futterkiste'],
-      datosVenta: [Math.round(4273.0)],
-      datosTabla: [
-        {
-          descripcion: 'Alfreds Futterkiste',
-          valor: 4273.0,
-        },
-      ],
-      años: ['2000', '2000', '2000', '2000', '2000'],
-    };
+  onChangeDimension($event) {
+    this.selectedParams.dimension = $event.label;
+    this.updateGraphic();
+  }
 
-    this.pieChartLabels = graphic.datosDimension;
-    this.pieChartData = graphic.datosVenta;
+  onChangeMeses($event) {
+    this.selectedParams.months = $event;
+    this.updateGraphic();
+  }
+
+  onChangeAnios($event) {
+    this.selectedParams.years = $event;
+    this.updateGraphic();
+  }
+
+  onChangeCustomer($event) {
+    this.selectedParams.clients = $event;
+    this.updateGraphic();
+  }
+
+  updateGraphic() {
+    const dimension = this.selectedParams.dimension;
+    const { clients, years, months } = this.selectedParams;
+    let body = { clients, years, months };
+    for (const key in body) {
+      if (body[key].length === 0) body[key] = [''];
+    }
+
+    this.north.getGraphicsData(dimension ? dimension : 'Cliente', body).subscribe((graphic: any) => {
+
+        const result = graphic.datosTabla.reduce((rv, x) => {
+          (rv[x['descripcion']] = rv[x['descripcion']] || []).push(x);
+          return rv;
+        }, {});
+
+        let total = 0;
+        const names: string[] = [];
+        const values: number[] = [];
+        for (const key in result) {
+          names.push(key);
+          for (const value of result[key]) {
+            total += Math.round(value.valor);
+          }
+          values.push(total);
+          total = 0;
+        }
+
+        this.pieChartLabels = names.length !== 0 ? names : [''];
+        this.pieChartData = values.length !== 0 ? values : [0];
+    });
   }
 }

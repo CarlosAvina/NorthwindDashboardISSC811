@@ -10,7 +10,7 @@ import { ChartDataSets } from 'chart.js';
   styleUrls: ['./page1.component.css'],
 })
 export class Page1Component implements OnInit {
-  constructor(private north: NorthwindService) {}
+  constructor(private north: NorthwindService) { }
 
   dataAnios: Label[] = [];
   dataChartTable: ChartDataSets[] = [];
@@ -29,73 +29,84 @@ export class Page1Component implements OnInit {
   selectedAnios: any[] = [];
   selectedCustomer: any[] = [];
 
-  // Ng-Select Multiple
-  customer$: Observable<any>;
+  selectedParams: any = {
+    dimension: '',
+    clients: [],
+    years: [],
+    months: [],
+  };
 
   ngOnInit(): void {
-    // this.selectedDimension = this.defaultBindingsList[0];
+    this.selectedDimension = this.defaultBindingsList[0];
+    this.north.getSelectsData().subscribe((selectsData: any) => {
 
-    // this.north.getSelectsData().subscribe((result: any) => {
-    // console.log(result);
+      this.mesesList = selectsData.meses;
+      this.aniosList = selectsData.anios;
+      this.nombresList = selectsData.clientes;
 
-    const data = {
-      clientes: [
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-        'Alfreds Futterkiste',
-      ],
-      meses: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
-      anios: ['2000', '2000', '2000', '2000', '2000', '2000'],
-    };
+      this.updateGraphic();
+    });
+  }
 
-    this.mesesList = data.meses;
-    this.aniosList = data.anios;
-    this.nombresList = data.clientes;
+  onChangeDimension($event) {
+    this.selectedParams.dimension = $event.label;
+    this.updateGraphic();
+  }
 
-    // this.dataAnios = result.years;
-    // this.dataChartTable = result;
+  onChangeMeses($event) {
+    this.selectedParams.months = $event;
+    this.updateGraphic();
+  }
 
-    // });
+  onChangeAnios($event) {
+    this.selectedParams.years = $event;
+    this.updateGraphic();
+  }
 
-    // this.north.getGraphicsData('Cliente', []).subscribe((result: any) => {
-    //   console.log(result);
+  onChangeCustomer($event) {
+    this.selectedParams.clients = $event;
+    this.updateGraphic();
+  }
 
-    const graphic = {
-      datosDimension: ['Alfreds Futterkiste'],
-      datosVenta: [4273.0],
-      datosTabla: [
-        {
-          descripcion: 'Alfreds Futterkiste',
-          valor: 4273.0,
-        },
-      ],
-      años: ['2000', '2000', '2000', '2000', '2000'],
-    };
+  updateGraphic() {
+    const dimension = this.selectedParams.dimension;
+    const { clients, years, months } = this.selectedParams;
+    let body = { clients, years, months };
+    for (const key in body) {
+      if (body[key].length === 0) body[key] = [''];
+    }
+    
+    this.north.getGraphicsData(dimension ? dimension : 'Cliente', body).subscribe((graphic: any) => {
 
-    // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' }
-    const graphicData: ChartDataSets[] = [
-      {
-        data: [Math.round(graphic.datosVenta[0])],
-        label: graphic.datosDimension[0],
-      },
-      {
-        data: [Math.round(graphic.datosVenta[0])],
-        label: graphic.datosDimension[0],
-      },
-      {
-        data: [Math.round(graphic.datosVenta[0])],
-        label: graphic.datosDimension[0],
-      },
-      {
-        data: [Math.round(graphic.datosVenta[0])],
-        label: graphic.datosDimension[0],
-      }
-    ];
-    this.dataAnios = graphic.años;
-    this.dataChartTable = graphicData;
-    // });
+        const labels = graphic.datosTabla.map(label => `${label.meses} ${label.años}`).filter((item, index, arr) => arr.indexOf(item) === index);
+
+        let graphicValues: number[] = [];
+        let values = graphic.datosTabla.map((value, index, arr) => {
+          if (index === 0) {
+            graphicValues.push(value.valor);
+          } else if (value.descripcion === arr[index - 1].descripcion) {
+            graphicValues.push(value.valor);
+          }
+
+          if (arr[index + 1] !== undefined && value.descripcion !== arr[index + 1].descripcion) {
+            const vals = graphicValues;
+            graphicValues = [];
+            return { label: value.descripcion, data: vals }
+          } else if (arr[index + 1] === undefined) {
+            if (graphicValues.length === 0) graphicValues.push(value.valor);
+            return { label: value.descripcion, data: graphicValues }
+          }
+          else return undefined;
+        });
+
+        values = values.filter(v => v !== undefined);
+
+        const graphicData: ChartDataSets[] = values;
+        const emptyData: ChartDataSets[] = [{ label: '', data: [0] }];
+
+
+        this.dataAnios = labels ? labels : '';
+        this.dataChartTable = graphicData.length !== 0 ? graphicData : emptyData;
+    });
   }
 }
