@@ -1,7 +1,9 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetapi", "aspnetapi\aspnetapi.csproj", "{96FA13EA-3D80-44FA-A694-1B393E2CC6ED}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetapi", "aspnetapi\aspnetapi.csproj", "{984B9D34-DD9B-417C-B444-18E7F77042C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,9 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{96FA13EA-3D80-44FA-A694-1B393E2CC6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96FA13EA-3D80-44FA-A694-1B393E2CC6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96FA13EA-3D80-44FA-A694-1B393E2CC6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96FA13EA-3D80-44FA-A694-1B393E2CC6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{984B9D34-DD9B-417C-B444-18E7F77042C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DCD65F3-F788-4834-9CC5-3BCB9DF1A7F9}
 	EndGlobalSection
 EndGlobal

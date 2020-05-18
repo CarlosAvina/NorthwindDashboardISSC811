@@ -1,15 +1,58 @@
 <div class="mainContainer">
   <div class="headerContainer">
-    <h1 class="display-4">Page 1</h1>
+    <h1 class="display-4">Ventas a través del tiempo</h1>
   </div>
   <div class="selectsContainer">
-    <ng-select class="custom" [items]="['hola', 'mundo']" [closeOnSelect]="true" [searchable]="true" [clearable]="false" placeholder="Mes"></ng-select>
-    <ng-select class="custom" [items]="['hola', 'mundo']" [closeOnSelect]="true" [searchable]="true" [clearable]="false" placeholder="Año"></ng-select>
-    <ng-select class="custom" [items]="['hola', 'mundo']" [closeOnSelect]="true" [searchable]="true" [clearable]="false" placeholder="Clientes" [multiple]="true"></ng-select>
-  </div>
-  <div class="graphicContainer">
-    <div class="graphic">
-      <app-bar-chart></app-bar-chart>
+    <ng-select
+      class="custom"
+      [items]="defaultBindingsList"
+      [closeOnSelect]="true"
+      [searchable]="true"
+      [clearable]="false"
+      placeholder="Dimension"
+      [(ngModel)]="selectedDimension"
+      (change)="onChangeDimension($event)"
+      ></ng-select>
+      <ng-select
+      class="custom"
+      [items]="mesesList"
+      [closeOnSelect]="true"
+      [searchable]="true"
+      [clearable]="false"
+      placeholder="Mes"
+      [multiple]="true"
+      [(ngModel)]="selectedMeses"
+      (change)="onChangeMeses($event)"
+      ></ng-select>
+      <ng-select
+      class="custom"
+      [items]="aniosList"
+      [closeOnSelect]="true"
+      [searchable]="true"
+      [clearable]="false"
+      placeholder="Año"
+      [multiple]="true"
+      [(ngModel)]="selectedAnios"
+      (change)="onChangeAnios($event)"
+      ></ng-select>
+      <ng-select
+      class="custom"
+      [items]="nombresList"
+      [closeOnSelect]="true"
+      [searchable]="true"
+      [clearable]="false"
+      placeholder="Clientes"
+      [multiple]="true"
+      [(ngModel)]="selectedCustomer"
+      (change)="onChangeCustomer($event)"
+      ></ng-select>
+    </div>
+    <div class="graphicContainer">
+      <div class="graphic">
+      <app-bar-chart
+        [barChartLabels]="dataAnios"
+        [barChartData]="dataChartTable"
+      ></app-bar-chart>
     </div>
   </div>
 </div>

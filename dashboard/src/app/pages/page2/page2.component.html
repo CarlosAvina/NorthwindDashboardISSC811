@@ -1,36 +1,58 @@
 <div class="mainContainer">
   <div class="headerContainer">
-    <h1 class="display-4">Page 2</h1>
+    <h1 class="display-4">Ventas totales</h1>
   </div>
   <div class="selectsContainer">
     <ng-select
       class="custom"
-      [items]="['hola', 'mundo']"
+      [items]="defaultBindingsList"
+      [closeOnSelect]="true"
+      [searchable]="true"
+      [clearable]="false"
+      placeholder="Dimension"
+      [(ngModel)]="selectedDimension"
+      (change)="onChangeDimension($event)"
+    ></ng-select>
+    <ng-select
+      class="custom"
+      [items]="mesesList"
       [closeOnSelect]="true"
       [searchable]="true"
       [clearable]="false"
       placeholder="Mes"
+      [multiple]="true"
+      [(ngModel)]="selectedMeses"
+      (change)="onChangeMeses($event)"
     ></ng-select>
     <ng-select
       class="custom"
-      [items]="['hola', 'mundo']"
+      [items]="aniosList"
       [closeOnSelect]="true"
       [searchable]="true"
       [clearable]="false"
       placeholder="Año"
+      [multiple]="true"
+      [(ngModel)]="selectedAnios"
+      (change)="onChangeAnios($event)"
     ></ng-select>
     <ng-select
       class="custom"
-      [items]="['hola', 'mundo']"
+      [items]="nombresList"
       [closeOnSelect]="true"
       [searchable]="true"
       [clearable]="false"
       placeholder="Clientes"
+      [multiple]="true"
+      [(ngModel)]="selectedCustomer"
+      (change)="onChangeCustomer($event)"
     ></ng-select>
   </div>
   <div class="graphicContainer">
     <div class="graphic">
-      <app-pie-chart></app-pie-chart>
+      <app-pie-chart
+        [pieChartLabels]="pieChartLabels"
+        [pieChartData]="pieChartData"
+      ></app-pie-chart>
     </div>
   </div>
 </div>
