@@ -1,12 +1,18 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 import AuthToken from './middlewares/token.middleware';
+
+import MongoDBHelper from './helpers/mongodb.helper';
+
 import ENV from './environments/env.production';
 
 const app = express();
 const token = AuthToken();
+const mongoDB = MongoDBHelper.getInstance(ENV.MONGODB);
+// const hash = bcrypt();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,19 +26,28 @@ app.get('/api/auth/test', (req: Request, res: Response) => {
     });
 });
 
-app.post('/api/auth/login', (req: Request, res: Response) => {
+app.post('/api/auth/login', async (req: Request, res: Response) => {
     const { username, password } = req.body;
-    console
-    const mockUser = {
-        id: 1,
-        username: "juan",
-        password: "123",
-        roles: ['admin', 'user']
-    };
 
-    if (username === mockUser.username && password === mockUser.password) {
+    const user = await mongoDB.db.collection('users').findOne({ username: username });
+    console.log(user);
+    if (user) {
+        if (!bcrypt.compareSync(password, user.password)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'Lo sentimos, usuario o contraseña no validos'
+            });
+        }
 
-        jwt.sign(mockUser, 'secretWamas', { expiresIn: 120 }, (err, token) => {
+        const userValid = {
+            uid: user._id,
+            username: user.username,
+            fullName: user.fullName,
+            urlPhoto: user.urlPhoto,
+            rol: user.rol
+        }
+
+        jwt.sign(userValid, 'secretWamas', { expiresIn: 120 }, (err, token) => {
             if (err) {
                 return res.status(500).json({
                     ok: false,
@@ -47,13 +62,13 @@ app.post('/api/auth/login', (req: Request, res: Response) => {
                 token
             });
         });
-
     } else {
-        res.status(403).json({
+        res.status(404).json({
             ok: false,
-            msg: 'El usuario o password son incorrectos'
+            msg: 'Lo sentimos, usuario o contraseña no validos'
         });
     }
+
 });
 
 app.get('/api/auth/getCustomers', token.verify, (req: Request, res: Response) => {
@@ -74,6 +89,28 @@ app.get('/api/auth/getCustomers', token.verify, (req: Request, res: Response) =>
     })
 });
 
-app.listen(ENV.API.PORT, () => {
+app.post('/api/auth/createUser', async (req: Request, res: Response) => {
+    const { email, password, fullName, urlPhoto, rol } = req.body;
+
+    const newUser = {
+        email, password: bcrypt.hashSync(password, 10), fullName, urlPhoto, rol
+    }
+
+    const insert = await mongoDB.db.collection('users').insertOne(newUser);
+
+    res.status(200).json({
+        ok: true,
+        msg: 'Usuario creado de forma correcta',
+        uid: insert.insertedId
+    });
+});
+
+app.listen(ENV.API.PORT, async () => {
     console.log(`Servidor de APIs funcionando correctamente en el puerto ${ENV.API.PORT}`);
+    await mongoDB.connect();
+});
+
+process.on('unhandledRejection', async (err: any) => {
+    await mongoDB.close();
+    process.exit();
 });
