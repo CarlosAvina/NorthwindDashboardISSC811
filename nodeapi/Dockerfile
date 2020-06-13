@@ -7,4 +7,5 @@ COPY . /usr/src/api
 RUN npm install -g typescript
 RUN npm install
 RUN tsc -p .
-RUN npm start
+
+CMD forever -c 'node --harmony' ./dist/index.js
