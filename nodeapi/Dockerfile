@@ -11,3 +11,6 @@ RUN tsc -p .
 EXPOSE 3000
 
 CMD forever -c 'node --harmony' ./dist/index.js
+
+# FROM nginx
+# COPY default.conf /etc/nginx/conf.d/
