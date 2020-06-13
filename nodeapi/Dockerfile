@@ -12,5 +12,7 @@ EXPOSE 3000
 
 CMD forever -c 'node --harmony' ./dist/index.js
 
-# FROM nginx
-# COPY default.conf /etc/nginx/conf.d/
+FROM nginx
+COPY default.conf /etc/nginx/conf.d/
+EXPOSE 80 443 3000
+CMD nginx -g 'daemon off;'
