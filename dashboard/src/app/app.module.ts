@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { ChartsModule } from 'ng2-charts';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,7 @@ import { Page1Component } from './pages/page1/page1.component';
 import { Page2Component } from './pages/page2/page2.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
     Page2Component,
     PieChartComponent,
     BarChartComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,9 +29,10 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
     AppRoutingModule,
     NgSelectModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
