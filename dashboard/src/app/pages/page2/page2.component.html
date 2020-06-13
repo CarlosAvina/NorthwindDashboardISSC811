@@ -1,58 +1,66 @@
 <div class="mainContainer">
   <div class="headerContainer">
-    <h1 class="display-4">Ventas totales</h1>
+    <h1 class="display-4">Ventas a través del tiempo</h1>
   </div>
-  <div class="selectsContainer">
-    <ng-select
-      class="custom"
-      [items]="defaultBindingsList"
-      [closeOnSelect]="true"
-      [searchable]="true"
-      [clearable]="false"
-      placeholder="Dimension"
-      [(ngModel)]="selectedDimension"
-      (change)="onChangeDimension($event)"
-    ></ng-select>
-    <ng-select
-      class="custom"
-      [items]="mesesList"
-      [closeOnSelect]="true"
-      [searchable]="true"
-      [clearable]="false"
-      placeholder="Mes"
-      [multiple]="true"
-      [(ngModel)]="selectedMeses"
-      (change)="onChangeMeses($event)"
-    ></ng-select>
-    <ng-select
-      class="custom"
-      [items]="aniosList"
-      [closeOnSelect]="true"
-      [searchable]="true"
-      [clearable]="false"
-      placeholder="Año"
-      [multiple]="true"
-      [(ngModel)]="selectedAnios"
-      (change)="onChangeAnios($event)"
-    ></ng-select>
-    <ng-select
-      class="custom"
-      [items]="nombresList"
-      [closeOnSelect]="true"
-      [searchable]="true"
-      [clearable]="false"
-      placeholder="Clientes"
-      [multiple]="true"
-      [(ngModel)]="selectedCustomer"
-      (change)="onChangeCustomer($event)"
-    ></ng-select>
-  </div>
-  <div class="graphicContainer">
-    <div class="graphic">
-      <app-pie-chart
-        [pieChartLabels]="pieChartLabels"
-        [pieChartData]="pieChartData"
-      ></app-pie-chart>
+  <div routerLinkActive="active" class="navigation">
+    <div class="link-button barras">
+      <a href="#barras" [routerLink]="['/barras']">
+        barras
+      </a>
     </div>
+    <div class="link-button pie">
+      <a href="#pie" [routerLink]="['/pie']">
+        pie
+      </a>
+    </div>
+  </div>
+  <ng-select
+    class="custom select-1"
+    [items]="defaultBindingsList"
+    [closeOnSelect]="true"
+    [searchable]="true"
+    [clearable]="false"
+    placeholder="Dimension"
+    [(ngModel)]="selectedDimension"
+    (change)="onChangeDimension($event)"
+  ></ng-select>
+  <ng-select
+    class="custom select-2"
+    [items]="mesesList"
+    [closeOnSelect]="true"
+    [searchable]="true"
+    [clearable]="false"
+    placeholder="Mes"
+    [multiple]="true"
+    [(ngModel)]="selectedMeses"
+    (change)="onChangeMeses($event)"
+  ></ng-select>
+  <ng-select
+    class="custom select-3"
+    [items]="aniosList"
+    [closeOnSelect]="true"
+    [searchable]="true"
+    [clearable]="false"
+    placeholder="Año"
+    [multiple]="true"
+    [(ngModel)]="selectedAnios"
+    (change)="onChangeAnios($event)"
+  ></ng-select>
+  <ng-select
+    class="custom select-4"
+    [items]="nombresList"
+    [closeOnSelect]="true"
+    [searchable]="true"
+    [clearable]="false"
+    placeholder="Clientes"
+    [multiple]="true"
+    [(ngModel)]="selectedCustomer"
+    (change)="onChangeCustomer($event)"
+  ></ng-select>
+  <div class="graphic">
+    <app-pie-chart
+      [pieChartLabels]="pieChartLabels"
+      [pieChartData]="pieChartData"
+    ></app-pie-chart>
   </div>
 </div>
