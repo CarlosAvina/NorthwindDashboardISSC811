@@ -18,6 +18,7 @@ export default class MongoDBHelper {
     }
 
     async connect() {
+        console.log(this.dbUri);
         await MongoClient.connect(this.dbUri, { useNewUrlParser: true, useUnifiedTopology: true }).then(
             (connection: any) => {
                 this.cnn = connection;
