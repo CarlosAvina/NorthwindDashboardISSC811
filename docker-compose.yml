@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  reverse-proxy:
+    image: jwilder/nginx-proxy:alpine
+    container_name: "Reverse-Proxy"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+  mongo-db:
+    image: "mongo"
+    container_name: "MongoDB-Container"
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=dbAuth
+      - MONGO_INITDB_ROOT_USERNAME=dba-admin
+      - MONGO_INITDB_ROOT_PASSWORD=mongoadmin123
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
+      - "/opt/mongodb/data/db:/data/db"
+  angular-dashboard:
+    container_name: "Angular-Dashboard"
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - VIRTUAL_HOST=app.northwind.com
+  node-api:
+    container_name: "Node-API"
+    ports:
+      - "3000:3000"
+    build:
+      context: ./nodeapi
+      dockerfile: Dockerfile
+    restart: always
