@@ -71,29 +71,18 @@ app.post('/api/auth/login', async (req: Request, res: Response) => {
 
 });
 
-app.get('/api/auth/getCustomers', token.verify, (req: Request, res: Response) => {
-
-    const { authUser } = req.body;
-
-    const mockCustomer = [
-        { clave: 'ASDJ', nombre: 'American AxeL' },
-        { clave: 'GDJK', nombre: 'Grupo Pirelli' },
-        { clave: 'IENK', nombre: 'General Motros' }
-    ];
-
+app.get('/api/auth/verify', token.verify, (req: Request, res: Response) => {
     res.status(200).json({
         ok: true,
-        msg: 'Permiso concedido',
-        data: mockCustomer,
-        user: authUser
-    })
+        msg: 'Permiso concedido'
+    });
 });
 
 app.post('/api/auth/createUser', async (req: Request, res: Response) => {
-    const { email, password, fullName, urlPhoto, rol } = req.body;
+    const { username, password, fullName, urlPhoto, rol } = req.body;
 
     const newUser = {
-        email, password: bcrypt.hashSync(password, 10), fullName, urlPhoto, rol
+        username, password: bcrypt.hashSync(password, 10), fullName, urlPhoto, rol
     }
 
     const insert = await mongoDB.db.collection('users').insertOne(newUser);

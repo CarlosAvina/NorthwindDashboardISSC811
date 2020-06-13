@@ -10,7 +10,7 @@ export default class MongoDBHelper {
 
     constructor(SETTINGS: any) {
         this.port = SETTINGS.PORT;
-        this.dbUri = `mongodb://${SETTINGS.USER_NAME}:${SETTINGS.USER_PASSWORD}@${SETTINGS.HOST}/${SETTINGS.DEFAULT_DATABASE}`;
+        this.dbUri = `mongodb://${SETTINGS.USER_NAME}:${SETTINGS.USER_PASSWORD}@${SETTINGS.HOST}:${SETTINGS.PORT}/${SETTINGS.DEFAULT_DATABASE}?authSource=admin`;
     }
 
     public static getInstance(settings: any) {
