@@ -2,8 +2,32 @@
   height: 100%;
   width: 100%;
 
+  background-color: #dfe6e9;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+}
+
+@keyframes color-rotate {
+  from {
+    color: hue-rotate(0deg);
+    filter: hue-rotate(0deg);
+    background-color: hue-rotate(0deg);
+  }
+  to {
+    color: hue-rotate(360deg);
+    filter: hue-rotate(360deg);
+    background-color: hue-rotate(360deg);
+  }
+}
+
+h1 {
+  font-family: "Faster One", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1:hover {
+  cursor: pointer;
 }
 
 .headerContainer {
@@ -11,10 +35,14 @@
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
-  background-color: teal;
+  background-color: black;
   color: white;
 
   grid-column: 1 / -1;
+
+  animation: color-rotate 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 .navigation {
@@ -26,7 +54,49 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
+a {
+  font-weight: 700;
+}
+
+a:link {
+  color: #adff2f;
+}
+
+/* visited link */
+a:visited {
+  color: #adff2f;
+}
+
+/* mouse over link */
+a:hover {
+  color: #adff2f;
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  color: #adff2f;
+}
+
 .link-button {
+  background-color: black;
+  padding: 10px 15px;
+  margin: 10px;
+  border: 3px solid #adff2f;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.link-button:hover {
+  /* background-color: #c0392b; */
+  animation: color-rotate 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  cursor: pointer;
+}
+
+.link-button:active {
+  transform: translateY(3px);
 }
 
 .barras {
@@ -73,4 +143,12 @@
   /* width: 80vw; */
 
   grid-column: 2 / 8;
+}
+
+.ng-select.custom .ng-select-container {
+  /* background-color: white; */
+  /* border: 1px solid white; */
+  color: white;
+  border-color: #dc3545;
+  background-color: white;
 }
