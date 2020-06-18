@@ -3,7 +3,7 @@ export const environment = {
   API: {
     EndPoint: {
       Northwind: 'https://localhost:44337/v1/analysis/northwind/',
-      NODE: 'http://192.168.10.79:3000'
+      NODE: 'ip-172-31-17-56.us-east-2.compute.internal:3000'
     }
   }
 };
