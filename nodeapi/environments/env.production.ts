@@ -6,7 +6,7 @@ export default {
     },
     MONGODB: {
         PORT: 27017,
-        HOST: 'ip-172-31-17-56.us-east-2.compute.internal',
+        HOST: 'ip-172-31-4-251.us-east-2.compute.internal',
         USER_NAME: 'dba-admin',
         USER_PASSWORD: 'mongoadmin123',
         DEFAULT_DATABASE: 'dbAuth'
