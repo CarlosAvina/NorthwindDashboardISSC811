@@ -1,8 +1,8 @@
 .mainContainer {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 
-  background-color: #dfe6e9;
+  /* background-color: #dfe6e9; */
   display: grid;
   grid-template-columns: repeat(8, 1fr);
 }
@@ -21,9 +21,12 @@
 }
 
 h1 {
-  font-family: "Faster One", cursive;
+  /* font-family: "Faster One", cursive;
   font-weight: 400;
+  font-style: normal; */
+  font-family: gothic-open-shaded, sans-serif;
   font-style: normal;
+  font-weight: 400;
 }
 
 h1:hover {
@@ -35,8 +38,9 @@ h1:hover {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
-  background-color: black;
+  background-color: #151616;
   color: white;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 1);
 
   grid-column: 1 / -1;
 
@@ -51,7 +55,7 @@ h1:hover {
   grid-column: 4 / 6;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 100px 1fr;
 }
 
 a {
@@ -59,30 +63,31 @@ a {
 }
 
 a:link {
-  color: #adff2f;
+  color: white;
 }
 
 /* visited link */
 a:visited {
-  color: #adff2f;
+  color: white;
 }
 
 /* mouse over link */
 a:hover {
-  color: #adff2f;
+  color: white;
   text-decoration: none;
 }
 
 /* selected link */
 a:active {
-  color: #adff2f;
+  color: white;
 }
 
 .link-button {
-  background-color: black;
+  background-color: #c0392b;
+  width: 150px;
   padding: 10px 15px;
   margin: 10px;
-  border: 3px solid #adff2f;
+  border: 3px solid #c0392b;
   border-radius: 25px;
   text-align: center;
 }
@@ -101,13 +106,24 @@ a:active {
 
 .barras {
   grid-column: 1 / 2;
+  align-self: center;
+  justify-self: end;
+}
+
+.home {
+  grid-column: 2 / 3;
+  align-self: center;
+  justify-self: center;
 }
 
 .pie {
-  grid-column: 2 / -1;
+  grid-column: 3 / -1;
+  align-self: center;
+  justify-self: start;
 }
 
 .select-1 {
+  margin-top: 50px;
   grid-column: 2 / -2;
 }
 .select-2 {
@@ -120,22 +136,8 @@ a:active {
   grid-column: 2 / -2;
 }
 
-/* .selectsContainer {
-  background-color: white;
-  display: flexbox;
-  align-items: center;
-  padding-top: 20px;
-  padding-right: 15%;
-  padding-left: 15%;
-} */
-
-/* .graphicContainer {
-  display: flexbox;
-  align-items: center;
-} */
-
 .graphic {
-  display: flexbox;
+  /* display: flexbox; */
   margin-top: 30px;
   margin-right: 10%;
   margin-left: 10%;
@@ -143,12 +145,5 @@ a:active {
   /* width: 80vw; */
 
   grid-column: 2 / 8;
-}
-
-.ng-select.custom .ng-select-container {
-  /* background-color: white; */
-  /* border: 1px solid white; */
-  color: white;
-  border-color: #dc3545;
-  background-color: white;
+  /* grid-row: 7 / -1; */
 }

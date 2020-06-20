@@ -1,17 +1,18 @@
 <div class="mainContainer">
   <div class="headerContainer">
     <h1 class="display-4">Ventas a través del tiempo</h1>
-  </div>
-  <div routerLinkActive="active" class="navigation">
-    <div class="link-button barras">
-      <a href="#barras" [routerLink]="['/barras']">
-        Barras
-      </a>
-    </div>
-    <div class="link-button pie">
-      <a href="#pie" [routerLink]="['/pie']">
-        Pie
-      </a>
+    <div routerLinkActive="active" class="navigation">
+      <div class="link-button barras">
+        <a href="#barras" [routerLink]="['/barras']">
+          Barras
+        </a>
+      </div>
+      <app-icon class="home"></app-icon>
+      <div class="link-button pie">
+        <a href="#pie" [routerLink]="['/pie']">
+          Pie
+        </a>
+      </div>
     </div>
   </div>
   <ng-select

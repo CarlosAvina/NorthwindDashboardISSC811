@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { NorthwindService } from 'src/app/services/northwind.service';
 import { Label } from 'ng2-charts';
 import { ChartDataSets } from 'chart.js';

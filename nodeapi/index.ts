@@ -68,7 +68,6 @@ app.post('/api/auth/login', async (req: Request, res: Response) => {
             msg: 'Lo sentimos, usuario o contraseña no validos'
         });
     }
-
 });
 
 app.get('/api/auth/verify', token.verify, (req: Request, res: Response) => {

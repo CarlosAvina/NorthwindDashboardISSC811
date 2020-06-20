@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
 import { NodeapiService } from '../../services/nodeapi.service';
 import { AuthService } from '../../services/auth.service';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm;
 
-  constructor(private formBuilder: FormBuilder, private node: NodeapiService, private auth: AuthService, public router: Router) {
+  constructor(private formBuilder: FormBuilder, private node: NodeapiService, private auth: AuthService, public router: Router, public dialog: MatDialog) {
     this.loginForm = this.formBuilder.group({
       username: '',
       password: ''
@@ -27,12 +29,19 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
 
+  openDialog() {
+    const dialogRef = this.dialog.open(ModalComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   onSubmit($event) {
     console.log($event);
     const { username, password } = $event;
 
-    this.node.login(username, password).subscribe( async (response: any) => {
-
+    this.node.login(username, password).subscribe(async (response: any) => {
       if (!response.ok) {
         console.log(response.error.msg);
       }
@@ -44,8 +53,13 @@ export class LoginComponent implements OnInit {
       console.log(res);
       if (res) {
         this.router.navigate(['barras']);
-      };
-    })
+      }
+    }, (error) => this.openDialog());
+
+
     this.loginForm.reset();
+
+
+    // this.router.navigate(['barras']);
   }
 }
