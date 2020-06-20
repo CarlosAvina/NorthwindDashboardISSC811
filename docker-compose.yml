@@ -12,6 +12,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
+      - ./reverse_proxy.conf:/etc/nginx/conf.d/default.conf
   mongo-db:
     image: "mongo"
     container_name: "MongoDB-Container"
