@@ -3,7 +3,7 @@ export const environment = {
   API: {
     EndPoint: {
       Northwind: 'http://192.168.10.81/API.Northwind.ISSC811/v1/analysis/northwind/',
-      NODE: 'app.northwind.com'
+      NODE: 'node.northwind.com'
     }
   }
 };
