@@ -26,6 +26,8 @@ services:
     volumes:
       - "./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
       - "/opt/mongodb/data/db:/data/db"
+    environment:
+      - VIRTUAL_HOST=app.northwind.com
   angular-dashboard:
     container_name: "Angular-Dashboard"
     build:
