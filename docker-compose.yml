@@ -43,4 +43,4 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - VIRTUAL_HOST=app.northwind.com/node
+      - VIRTUAL_HOST=app.northwind.com
