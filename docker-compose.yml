@@ -9,7 +9,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./reverse_proxy.conf:/etc/nginx/conf.d/reverse_proxy.conf:ro
+      # - ./reverse_proxy.conf:/etc/nginx/conf.d/reverse_proxy.conf:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
@@ -26,16 +26,16 @@ services:
     volumes:
       - "./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
       - "/opt/mongodb/data/db:/data/db"
-    # environment:
-    #   - VIRTUAL_HOST=app.northwind.com
+    environment:
+      - VIRTUAL_HOST=mongo
   angular-dashboard:
     container_name: "Angular-Dashboard"
     build:
       context: ./dashboard
       dockerfile: Dockerfile
     restart: always
-    # environment:
-    #   - VIRTUAL_HOST=app.northwind.com
+    environment:
+      - VIRTUAL_HOST=app.northwind.com
   node-api:
     container_name: "Node-API"
     ports:
@@ -44,5 +44,5 @@ services:
       context: ./nodeapi
       dockerfile: Dockerfile
     restart: always
-    # environment:
-    #   - VIRTUAL_HOST=app.northwind.com
+    environment:
+      - VIRTUAL_HOST=node
