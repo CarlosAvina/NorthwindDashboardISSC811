@@ -17,7 +17,7 @@ const mongoDB = MongoDBHelper.getInstance(ENV.MONGODB);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors());
+// app.use(cors());
 
 // Add headers
 // app.use(function (req, res, next) {
@@ -38,6 +38,13 @@ app.use(cors());
 //     // Pass to next layer of middleware
 //     next();
 // });
+
+app.options('/api/auth/login', function (req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.end();
+});
 
 app.get('/api/auth/test', (req: Request, res: Response) => {
     res.status(200).json({
