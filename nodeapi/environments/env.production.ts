@@ -6,7 +6,7 @@ export default {
     },
     MONGODB: {
         PORT: 27017,
-        HOST: 'mongo',
+        HOST: 'mongo.northwind.com',
         USER_NAME: 'dba-admin',
         USER_PASSWORD: 'mongoadmin123',
         DEFAULT_DATABASE: 'dbAuth'

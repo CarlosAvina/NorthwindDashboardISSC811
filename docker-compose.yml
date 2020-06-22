@@ -27,13 +27,15 @@ services:
       - "./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
       - "/opt/mongodb/data/db:/data/db"
     environment:
-      - VIRTUAL_HOST=app.northwind.com
+      - VIRTUAL_HOST=mongo.northwind.com
   angular-dashboard:
     container_name: "Angular-Dashboard"
     build:
       context: ./dashboard
       dockerfile: Dockerfile
     restart: always
+    links:
+      - node-api
     environment:
       - VIRTUAL_HOST=app.northwind.com
   node-api:
@@ -44,5 +46,7 @@ services:
       context: ./nodeapi
       dockerfile: Dockerfile
     restart: always
+    links:
+      - mongo-db
     environment:
-      - VIRTUAL_HOST=app.northwind.com
+      - VIRTUAL_HOST=api.northwind.com
