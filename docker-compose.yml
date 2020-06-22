@@ -9,10 +9,33 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      # - ./reverse_proxy.conf:/etc/nginx/conf.d/reverse_proxy.conf:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
+  angular-dashboard:
+    container_name: "Angular-Dashboard"
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    image: angular-dashboard:v1
+    restart: always
+    links:
+      - node-api
+    environment:
+      - VIRTUAL_HOST=app.northwind.com
+  node-api:
+    container_name: "Node-API"
+    ports:
+      - "3000:3000"
+    build:
+      context: ./nodeapi
+      dockerfile: Dockerfile
+    image: node-api:v1
+    restart: always
+    links:
+      - mongo-db
+    environment:
+      - VIRTUAL_HOST=api.northwind.com
   mongo-db:
     image: "mongo"
     container_name: "MongoDB-Container"
@@ -28,25 +51,3 @@ services:
       - "/opt/mongodb/data/db:/data/db"
     environment:
       - VIRTUAL_HOST=mongo.northwind.com
-  angular-dashboard:
-    container_name: "Angular-Dashboard"
-    build:
-      context: ./dashboard
-      dockerfile: Dockerfile
-    restart: always
-    links:
-      - node-api
-    environment:
-      - VIRTUAL_HOST=app.northwind.com
-  node-api:
-    container_name: "Node-API"
-    ports:
-      - "3000:3000"
-    build:
-      context: ./nodeapi
-      dockerfile: Dockerfile
-    restart: always
-    links:
-      - mongo-db
-    environment:
-      - VIRTUAL_HOST=api.northwind.com
