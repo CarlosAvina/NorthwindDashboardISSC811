@@ -17,7 +17,7 @@ const mongoDB = MongoDBHelper.getInstance(ENV.MONGODB);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors({ origin: '*' }));
+app.use(cors());
 
 // Add headers
 // app.use(function (req, res, next) {
