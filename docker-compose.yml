@@ -34,8 +34,6 @@ services:
     restart: always
     links:
       - mongo-db
-    environment:
-      - VIRTUAL_HOST=api.northwind.com
   mongo-db:
     image: "mongo"
     container_name: "MongoDB-Container"
@@ -49,5 +47,3 @@ services:
     volumes:
       - "./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
       - "/opt/mongodb/data/db:/data/db"
-    environment:
-      - VIRTUAL_HOST=mongo.northwind.com
